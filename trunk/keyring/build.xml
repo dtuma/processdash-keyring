@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<project default="dist" basedir=".">
+
+  <property file="build.properties"/>
+
+  <property name="src"   value="src"/>
+  <property name="lib"   value="lib"/>
+  <property name="build" value="antbin"/>
+  <property name="dist"  value="dist"/>
+
+  <property name="jna.jar" value="${lib}/jna-3.3.0.jar"/>
+
+  <property name="debug"          value="on"/>
+  <property name="compile.target" value="1.5"/>
+
+
+  <target name="compile" description="Compile the library" >
+    <!-- Compile the java code into ${build} -->
+    <mkdir dir="${build}"/>
+    <javac destdir="${build}" debug="${debug}" target="${compile.target}">
+      <classpath><pathelement path="${jna.jar}"/></classpath>
+      <src><dirset dir="${src}" includes="*"/></src>
+    </javac>
+  </target>
+
+
+  <target name="jar" depends="compile" description="Package up the library">
+    <mkdir dir="${dist}"/>
+    <!-- Build the library file -->
+    <jar destfile="${dist}/keyring-lib.jar" duplicate="fail">
+      <fileset dir="${build}" excludes="**/KeyringTest.class" />
+      <fileset dir="${src}/stubs" includes="**/*.properties" />
+    </jar>
+    <!-- Build a JAR that could be used for testing -->
+    <jar destfile="${dist}/keyring-test.jar" duplicate="fail">
+      <!-- specify the manifest file contents -->
+      <manifest>
+        <attribute name="Main-Class"
+                   value="org.netbeans.modules.keyring.KeyringTest"/>
+      </manifest>
+      <fileset dir="${build}" />
+      <fileset dir="${src}/test" includes="**/*.properties" />
+      <fileset dir="${src}/stubs" includes="**/*.properties" />
+      <zipfileset src="${jna.jar}"/>
+    </jar>
+  </target>
+
+  <target name="src" description="Package up the source code">
+    <mkdir dir="${dist}"/>
+    <jar destfile="${dist}/keyring-src.jar" duplicate="fail" basedir="."
+         includes="build.xml src/"/>
+  </target>
+
+
+  <target name="dist" depends="jar,src"/>
+
+  <target name="clean">
+    <delete quiet="true" dir="${build}"/>
+  </target>
+
+</project>

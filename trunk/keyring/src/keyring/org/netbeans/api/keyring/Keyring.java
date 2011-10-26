@@ -83,6 +83,18 @@ public class Keyring {
     }
 
     /**
+     * @return true if the current keyring provider is capable of storing
+     *     passwords for future sessions; false if it can only store them
+     *     for the duration of the running JVM process.
+     */
+    public static synchronized boolean isPersistent() {
+        if (provider() instanceof DummyKeyringProvider)
+            return false;
+        else
+            return true;
+    }
+
+    /**
      * Reads a key from the ring.
      * @param key the identifier of the key
      * @return its value if found (you may null out its elements), else null if not present

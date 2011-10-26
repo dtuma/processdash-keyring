@@ -56,8 +56,8 @@ public class Utils {
     public static byte[] chars2Bytes(char[] chars) {
         byte[] bytes = new byte[chars.length * 2];
         for (int i = 0; i < chars.length; i++) {
-            bytes[i * 2] = (byte) (chars[i] / 256);
-            bytes[i * 2 + 1] = (byte) (chars[i] % 256);
+            bytes[i * 2] = (byte) (chars[i] >> 8);   // TUMA modified
+            bytes[i * 2 + 1] = (byte) (chars[i] & 0xff);    // TUMA modified
         }
         return bytes;
     }
@@ -65,7 +65,9 @@ public class Utils {
     public static char[] bytes2Chars(byte[] bytes) {
         char[] result = new char[bytes.length / 2];
         for (int i = 0; i < result.length; i++) {
-            result[i] = (char) (((int) bytes[i * 2]) * 256 + (int) bytes[i * 2 + 1]);
+            int high = (int) bytes[i * 2];
+            int low  = (int) bytes[i * 2 + 1];
+            result[i] = (char) ((high << 8) | (low & 0xff)); // TUMA modified
         }
         return result;
     }

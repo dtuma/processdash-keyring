@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/keyring"/>
+	<classpathentry kind="src" path="src/keyring.impl"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="src" path="src/stubs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jna-3.3.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
