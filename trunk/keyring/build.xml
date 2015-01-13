@@ -2,6 +2,7 @@
 
 <project default="dist" basedir=".">
 
+  <property environment="env"/>
   <property file="build.properties"/>
 
   <property name="src"   value="src"/>
@@ -32,6 +33,8 @@
       <fileset dir="${build}" excludes="**/KeyringTest.class" />
       <fileset dir="${src}/stubs" includes="**/*.properties" />
     </jar>
+    <signjar jar="${dist}/keyring-lib.jar" storepass="${sign.storepass}"
+         alias="processdash-full-permissions" />
     <!-- Build a JAR that could be used for testing -->
     <jar destfile="${dist}/keyring-test.jar" duplicate="fail">
       <!-- specify the manifest file contents -->
