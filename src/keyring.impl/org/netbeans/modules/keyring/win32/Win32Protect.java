@@ -46,6 +46,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
+import com.sun.jna.Structure.FieldOrder;
 import com.sun.jna.WString;
 import com.sun.jna.win32.StdCallLibrary;
 import java.util.Arrays;
@@ -155,6 +156,7 @@ public class Win32Protect implements EncryptionProvider {
         )/* throws LastErrorException*/;
     }
     
+    @FieldOrder({"cbData", "pbData"})
     public static class CryptIntegerBlob extends Structure {
         public int cbData;
         public /*byte[]*/Pointer pbData;
