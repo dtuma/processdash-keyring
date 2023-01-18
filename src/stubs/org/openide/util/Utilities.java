@@ -12,7 +12,7 @@ public class Utilities {
     }
 
     public static boolean isMac() {
-        return  "Mac OS X".equalsIgnoreCase(System.getProperty("os.name"));
+        return  System.getProperty("os.name").indexOf("OS X") != -1;
     }
 
 }
