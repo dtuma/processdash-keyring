@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src/keyring.impl"/>
 	<classpathentry kind="src" path="src/test"/>
 	<classpathentry kind="src" path="src/stubs"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jna-3.3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK1.6.0"/>
+	<classpathentry kind="lib" path="lib/jna-5.11.0.jar" sourcepath="lib/jna-5.11.0-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
