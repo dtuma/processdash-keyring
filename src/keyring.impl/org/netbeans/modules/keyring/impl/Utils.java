@@ -43,6 +43,7 @@
 package org.netbeans.modules.keyring.impl;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -82,6 +83,11 @@ public class Utils {
         } else {
             LOG.log(Level.FINE, "no such file to chmod: {0}", props);
         }
+    }
+
+    public static final Charset UTF_8;
+    static {
+        UTF_8 = Charset.forName("UTF-8");
     }
 
 }

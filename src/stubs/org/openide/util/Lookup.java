@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ public class Lookup {
         }
 
         String searchPrefix = clazz.getName() + "~";
-        for (Map.Entry e : p.entrySet()) {
+        for (Map.Entry e : new TreeMap<Object, Object>(p).entrySet()) {
             String key = (String) e.getKey();
             String className = (String) e.getValue();
             if (key.startsWith(searchPrefix)) {
