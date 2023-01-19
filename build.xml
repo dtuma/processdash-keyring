@@ -32,6 +32,7 @@
     <!-- Build the library file -->
     <jar destfile="${dist}/keyring-lib.jar" duplicate="fail">
       <fileset dir="${build}" excludes="**/KeyringTest.class" />
+      <fileset dir="${src}/keyring.impl" includes="**/*.properties" />
       <fileset dir="${src}/stubs" includes="**/*.properties" />
     </jar>
     <signjar jar="${dist}/keyring-lib.jar" storepass="${sign.storepass}"
