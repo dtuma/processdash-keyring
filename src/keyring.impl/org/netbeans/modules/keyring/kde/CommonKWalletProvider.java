@@ -20,7 +20,6 @@
 package org.netbeans.modules.keyring.kde;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -191,11 +190,7 @@ class CommonKWalletProvider implements KeyringProvider{
                 logger.log(Level.FINE, "application exit with code {0} for commandString: {1}; errVal: {2}",
                             new Object[]{exitCode, Arrays.toString(argv), errVal});
             }
-        } catch (InterruptedException ex) {
-            logger.log(Level.FINE,
-                    "exception thrown while invoking the command \""+Arrays.toString(argv)+"\"",
-                    ex);
-        } catch (IOException ex) {
+        } catch (Throwable ex) {
             logger.log(Level.FINE,
                     "exception thrown while invoking the command \""+Arrays.toString(argv)+"\"",
                     ex);

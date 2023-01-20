@@ -40,7 +40,10 @@ public class GnomeLibSecretProvider implements KeyringProvider {
 
     private static final Logger LOG = Logger.getLogger(GnomeLibSecretProvider.class.getName());
     private static final String KEY = "key"; // NOI18N
-    private static final Charset CHARSET = Charset.forName(Native.getDefaultStringEncoding());
+
+    private static class CharsetHolder {
+        private static final Charset CHARSET = Charset.forName(Native.getDefaultStringEncoding());
+    }
 
     private final String appName;
 
@@ -77,7 +80,7 @@ public class GnomeLibSecretProvider implements KeyringProvider {
         } catch (RuntimeException e) {
             LOG.log(Level.WARNING, null, e);
             return false;
-        } catch (UnsatisfiedLinkError e) {
+        } catch (Throwable e) {
             LOG.log(Level.FINE, null, e);
             return false;
         }
@@ -138,14 +141,14 @@ public class GnomeLibSecretProvider implements KeyringProvider {
     }
 
     private byte[] encode(char[] password) {
-        ByteBuffer encodedPasswordBuffer = CHARSET.encode(CharBuffer.wrap(password));
+        ByteBuffer encodedPasswordBuffer = CharsetHolder.CHARSET.encode(CharBuffer.wrap(password));
         byte[] encodedPassword = new byte[encodedPasswordBuffer.limit() + 1]; // zero terminated
         encodedPasswordBuffer.get(encodedPassword, 0, encodedPasswordBuffer.limit());
         return encodedPassword;
     }
 
     private char[] decode(byte[] bytes) {
-        CharBuffer decodedPasswordBuffer = CHARSET.decode(ByteBuffer.wrap(bytes));
+        CharBuffer decodedPasswordBuffer = CharsetHolder.CHARSET.decode(ByteBuffer.wrap(bytes));
         char[] decodedPassword = new char[decodedPasswordBuffer.limit()];
         decodedPasswordBuffer.get(decodedPassword, 0, decodedPasswordBuffer.limit());
         return decodedPassword;

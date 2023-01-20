@@ -42,11 +42,24 @@ public class MacProvider implements KeyringProvider {
 
     @Override
     public boolean enabled() {
+        if (!Utilities.isMac()) {
+            LOG.fine("not running on Mac OS");
+            return false;
+        }
         if (Boolean.getBoolean("netbeans.keyring.no.native")) {
             LOG.fine("native keyring integration disabled");
             return false;
         }
-        return Utilities.isMac();
+        try {
+            if (SecurityLibrary.LIBRARY == null) {
+                LOG.fine("loadLibrary -> null");
+                return false;
+            }
+            return true;
+        } catch (Throwable t) {
+            LOG.log(Level.FINE, null, t);
+            return false;
+        }
     }
 
     @Override
